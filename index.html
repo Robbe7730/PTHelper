@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PTHelper</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <div class="StopSearch StopSearchFrom">
+        <input type="text" id="From" placeholder="From"></input>
+        <button onClick="searchFrom()"><div class="ButtonValue" id="BtnValueFrom">&#128269;</div></button>
+        <ul id="StopsListFrom"></ul>
+      </div>
+
+      <div class="StopSearch StopSearchTo">
+        <input type="text" id="To" placeholder="To"></input>
+        <button onClick="searchTo()"><div class="ButtonValue" id="BtnValueTo">&#128269;</div></button>
+        <ul id="StopsListTo"></ul>
+      </div>
+      <div class="PlanRouteBtn">
+        <button class="hidden">Plan Route</button>
+      </div>
+    </div>
+  </body>
+</html>
