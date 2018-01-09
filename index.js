@@ -1,32 +1,39 @@
-function searchFrom() {
-  setButtonState("From", "LOADING")
-  loadStops("From")
-}
-
-function searchTo() {
-  setButtonState("To", "LOADING")
-  loadStops("To")
-}
-
 function loadStops(field) {
-  fetch(`https://www.delijn.be/rise-api-search/search/haltes/${document.getElementById(field).value}/1`)
-  .then(res => res.json())
-  .then((out) => callback(field, out))
-  .catch(err => callback(field, err, true));
+  setButtonState(field, "LOADING")
+  searchValue = document.getElementById(field).value
+  if(searchValue != "") {
+    try {
+      fetch(`https://www.delijn.be/rise-api-search/search/haltes/${searchValue}/1`)
+        .then(res => res.json())
+        .then((out) => callback(field, out))
+        .catch(err => { callback(field, err, true); })
+    } catch(err) {
+      callback(field, err, true);
+    }
+  } else {
+    callback(field, undefined)
+  }
 }
 
 function callback(field, out, isError = false) {
+  setButtonState(field, "SEARCH")
   if(!isError) {
-    setButtonState(field, "SEARCH")
     document.getElementById("StopsList"+field).innerHTML = ""
+
+    if(out == undefined) {
+      document.getElementById("StopsList"+field).innerHTML = ""
+      return
+    }
+
     if(out.haltes.length == 0) {
       document.getElementById("StopsList"+field).innerHTML = "No stops found"
+      return
     }
+
     for (var i = 0; i < Math.min(out.haltes.length,5); i++) {
       document.getElementById("StopsList"+field).innerHTML += `<li>${out.haltes[i].omschrijvingLang}</li>`
     }
   } else {
-    setButtonState(field, "ERROR")
     document.getElementById("StopsList"+field).innerHTML = `<div class="Error">An error occured</div>`
   }
 }
