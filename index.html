@@ -7,7 +7,7 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <div class="root">
+    <div class="Root">
       <div class="StopSearch StopSearchFrom">
         <input type="text" id="From" placeholder="From"></input>
         <button onClick="loadStops('From')" id="BtnFrom"><div class="ButtonValue" id="BtnValueFrom">&#128269;</div></button>
@@ -19,8 +19,10 @@
         <button onClick="loadStops('To')" id="BtnTo"><div class="ButtonValue" id="BtnValueTo">&#128269;</div></button>
         <ul id="StopsListTo"></ul>
       </div>
-      <div class="PlanRouteBtn">
-        <button class="hidden">Plan Route</button>
+      <div class="PlanRouteBtn Hidden" id="Plan">
+        <input type="datetime-local" id="DepartTime"></input>
+        <button id="BtnPlan" onclick="planRoute()">Plan Route</button>
+        <div id="TxtPlan" class="Error"></div>
       </div>
     </div>
   </body>

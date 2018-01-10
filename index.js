@@ -1,3 +1,8 @@
+var selectedStops = {
+  "From": undefined,
+  "To": undefined
+}
+
 function loadStops(field) {
   setButtonState(field, "LOADING")
   searchValue = document.getElementById(field).value
@@ -31,10 +36,36 @@ function callback(field, out, isError = false) {
     }
 
     for (var i = 0; i < Math.min(out.haltes.length,5); i++) {
-      document.getElementById("StopsList"+field).innerHTML += `<li>${out.haltes[i].omschrijvingLang}</li>`
+      document.getElementById("StopsList"+field).innerHTML += "<li><a onClick=\"setStop('" + field + "','" + out.haltes[i].halteNummer + "','" + out.haltes[i].omschrijvingLang + "')\">" + out.haltes[i].omschrijvingLang + "</a></li>"
     }
   } else {
     document.getElementById("StopsList"+field).innerHTML = `<div class="Error">An error occured</div>`
+  }
+}
+
+function setStop(field, stopUrl, stopName) {
+  document.getElementById(field).placeholder = stopName
+  document.getElementById(field).value = ""
+  document.getElementById("StopsList"+field).innerHTML = ""
+  selectedStops[field] = stopUrl
+  updatePlanFields()
+}
+
+function updatePlanFields() {
+  console.log(selectedStops)
+  document.getElementById("Plan").className = document.getElementById("Plan").className.replace(" Hidden", "")
+  if(!(selectedStops["From"] != undefined && selectedStops["To"] != undefined)) {
+    document.getElementById("Plan").className += " Hidden"
+  }
+}
+
+function planRoute() {
+  timeValue = document.getElementById("DepartTime").value
+  if(timeValue == "") {
+    document.getElementById("TxtPlan").innerHTML = "Please fill in a valid time/date."
+    return
+  } else {
+    // TODO: routeplanner (X,Y ophalen via halteId (waarde in selectedStops), route plannen, all is well)
   }
 }
 
