@@ -3,14 +3,14 @@ Save your route while you have internet connection to keep track of next stop(s)
 
 ## Roadmap
 #### Version 0.1
-[ ] Search/Save lines by name/number
-[ ] Display next stop(s)
-[ ] Display number of stops before target stop
-[ ] Check for missed stops (efficiently)
-[ ] ...
+- [ ] Search/Save lines by name/number
+- [ ] Display next stop(s)
+- [ ] Display number of stops before target stop
+- [ ] Check for missed stops (efficiently)
+- [ ] ...
 
 #### Version 1.0
-[ ] Plan/Save route entirely
-[ ] Integrate other services (namely Trains, possibly others)
-[ ] Better looks
-[ ] ...
+- [ ] Plan/Save route entirely
+- [ ] Integrate other services (namely Trains, possibly others)
+- [ ] Better looks
+- [ ] ...
