@@ -1,0 +1,6 @@
+# Saved lines and stops
+lines.json
+stops.json
+
+# Script to generate test stops and lines
+generateStops.py
