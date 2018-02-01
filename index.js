@@ -10,17 +10,17 @@ function loadStops(field) {
     try {
       fetch(`https://www.delijn.be/rise-api-search/search/haltes/${searchValue}/1`)
         .then(res => res.json())
-        .then((out) => callback(field, out))
-        .catch(err => { callback(field, err, true); })
+        .then((out) => callbackSearch(field, out))
+        .catch(err => { callbackSearch(field, err, true); })
     } catch(err) {
-      callback(field, err, true);
+      callbackSearch(field, err, true);
     }
   } else {
-    callback(field, undefined)
+    callbackSearch(field, undefined)
   }
 }
 
-function callback(field, out, isError = false) {
+function callbackSearch(field, out, isError = false) {
   setButtonState(field, "SEARCH")
   if(!isError) {
     document.getElementById("StopsList"+field).innerHTML = ""
@@ -65,7 +65,23 @@ function planRoute() {
     document.getElementById("TxtPlan").innerHTML = "Please fill in a valid time/date."
     return
   } else {
+    console.log(getStop(selectedStops["From"]), getStop(selectedStops["To"]))
     // TODO: routeplanner (X,Y ophalen via halteId (waarde in selectedStops), route plannen, all is well)
+  }
+}
+
+function getStop(stopNr) {
+  if(searchValue != "") {
+    try {
+      fetch(`https://www.delijn.be/rise-api-search/search/haltes/${searchValue}/1`)
+        .then(res => res.json())
+        .then((out) => callbackSearch(field, out))
+        .catch(err => { callbackSearch(field, err, true); })
+    } catch(err) {
+      callbackSearch(field, err, true);
+    }
+  } else {
+    callbackSearch(field, undefined)
   }
 }
 
