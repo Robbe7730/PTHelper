@@ -1,14 +1,21 @@
+lines = []
+stops = []
+selectedStops = []
+
 function loadLines()
 {
   lines = document.getElementById('lines')
 
   if (!lines.files[0]) {
     alert("Please select a line file before submitting")
+    return
   } else {
     fr = new FileReader()
     fr.onload = parseLines
     fr.readAsText(lines.files[0])
   }
+
+  document.getElementById("linesP").style = "display:none"
 }
 
 function loadStops()
@@ -17,18 +24,22 @@ function loadStops()
 
   if (!stops.files[0]) {
     alert("Please select a stop file before submitting")
+    return
   } else {
     fr = new FileReader()
     fr.onload = parseStops
     fr.readAsText(stops.files[0])
   }
+
+    document.getElementById("stopsP").style = "display:none"
 }
 
 function parseLines(e)
 {
   lines = JSON.parse(e.target.result)
   // console.log(lines)
-  for (var i in lines) {
+  for (var i in lines)
+  {
     line = lines[i]
     // console.log(line)
     var option = document.createElement("option")
@@ -49,13 +60,16 @@ function parseStops(e)
 {
   stops = JSON.parse(e.target.result)
   // console.log(stops)
-  for (var i in stops) {
-    stop = stops[i]
-    // console.log(stop)
-    if(i != 0)
-    {
-      document.getElementById("stopsText").innerHTML += "&rarr;"
-    }
-    document.getElementById("stopsText").innerHTML += stop.name + "(" + stop.lat + "," + stop.long + ")"
+}
+
+function displayStops()
+{
+  document.getElementById("stopsText").innerHTML = ""
+  lineStops = lines[document.getElementById("linesList").value].stops
+  for (stopID in lineStops)
+  {
+    stop = stops[lineStops[stopID]]
+    selectedStops.push(stop)
+    document.getElementById("stopsText").innerHTML += stop.name + "(" + stop.lat + "," + stop.long + ")->"
   }
 }
