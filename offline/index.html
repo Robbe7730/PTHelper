@@ -19,5 +19,9 @@
     </select>
     <button id="loadStops" onclick="displayStops()" disabled>&rarr;</button>
     <p id="stopsText"></p>
+    <p id="nearestStop" style="display:none">
+      <input type="number" id="searchX">, <input type="number" id="searchY"><button onclick="findNearestStop()">?</button>
+      <p id="nearestStopName"></p>
+    </p>
   </body>
 </html>

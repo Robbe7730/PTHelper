@@ -72,4 +72,32 @@ function displayStops()
     selectedStops.push(stop)
     document.getElementById("stopsText").innerHTML += stop.name + "(" + stop.lat + "," + stop.long + ")->"
   }
+  document.getElementById("nearestStop").style=""
+}
+
+function findNearestStop()
+{
+  currLat = document.getElementById("searchX").value
+  currLong = document.getElementById("searchY").value
+  minStop = {}
+  minDistance = 99999
+  console.log(selectedStops)
+  for (stopID in selectedStops)
+  {
+    stop = selectedStops[stopID]
+    distance = dist(currLat, currLong, stop.lat, stop.long)
+    console.log(stop, stop.name, distance)
+    if (distance < minDistance)
+    {
+      console.log("Setting " + stop.name)
+      minStop = stop
+      minDistance = distance
+    }
+  }
+  document.getElementById("nearestStopName").innerHTML = minStop.name
+}
+
+function dist(x1, y1, x2, y2)
+{
+  return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
 }
