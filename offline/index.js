@@ -31,10 +31,29 @@ function updateLineFile()
 
 function checkLineFile(obj)
 {
-  return true
+  if(obj.name && obj.number >= 0 && obj.stops)
+  {
+    for(stopID in obj.stops)
+    {
+      stop = obj.stops[stopID]
+      if(!(typeof(stop.name) == "string" && typeof(stop.id) == "number" && typeof(stop.lat) == "number" && typeof(stop.long) == "number"))
+      {
+        console.log("Invalid stop")
+        console.log(stop)
+        return false
+      }
+    }
+    return true
+  }
+  console.log("Invalid object")
+  console.log(obj)
+  return false
 }
 
 // Stage 2
+currentStop = undefined
+targetStop = undefined
+
 function startStage2()
 {
   document.getElementById("stage1").style = "display:none"
