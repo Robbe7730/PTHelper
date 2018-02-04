@@ -3,25 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>Work in progress</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
     <script src="index.js" charset="utf-8"></script>
   </head>
   <body>
-    <p id="linesP">
-      Lines: <input id="lines" type="file" accept=".json">
-      <button id="loadLinesFile" onclick="loadLines()">Load</button><br>
-    </p>
-    <p id="stopsP">
-      Stops: <input id="stops" type="file" accept=".json">
-      <button id="loadStopsFile" onclick="loadStops()">Load</button><br>
-    </p>
-    <select id="linesList">
-      <option value="" selected disabled hidden>Load lines first</option>
-    </select>
-    <button id="loadStops" onclick="displayStops()" disabled>&rarr;</button>
-    <p id="stopsText"></p>
-    <p id="nearestStop" style="display:none">
-      <input type="number" id="searchX">, <input type="number" id="searchY"><button onclick="findNearestStop()">?</button>
-      <p id="nearestStopName"></p>
-    </p>
+    <div id="stage1">
+      <input type="file" id="linesFile" accept=".json">
+    </div>
+    <div id="stage2" style="display:none">
+      Van: <select id="fromStop"></select><br>
+      Naar: <select id="toStop"></select><br>
+      <button onclick="startRoute()">START</button>
+    </div>
+    <div id="stage3" style="display:none">
+      Volgende halte: <p id="nextStop">XXXXXX</p><br>
+      Nog <p id="numStops">X</p> halte(s) (nog <p id="distance">Y</p> km)
+    </div>
   </body>
 </html>
