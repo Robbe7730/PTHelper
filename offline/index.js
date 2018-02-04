@@ -1,103 +1,52 @@
-lines = []
-stops = []
-selectedStops = []
+// Stage 1
+var inputFile
+var lineObj
 
-function loadLines()
+function onLoad()
 {
-  lines = document.getElementById('lines')
-
-  if (!lines.files[0]) {
-    alert("Please select a line file before submitting")
-    return
-  } else {
-    fr = new FileReader()
-    fr.onload = parseLines
-    fr.readAsText(lines.files[0])
-  }
-
-  document.getElementById("linesP").style = "display:none"
+  inputFile = document.getElementById("lineFile")
+  inputFile.addEventListener('change', updateLineFile);
 }
 
-function loadStops()
+function updateLineFile()
 {
-  stops = document.getElementById('stops')
-
-  if (!stops.files[0]) {
-    alert("Please select a stop file before submitting")
-    return
-  } else {
-    fr = new FileReader()
-    fr.onload = parseStops
-    fr.readAsText(stops.files[0])
-  }
-
-    document.getElementById("stopsP").style = "display:none"
-}
-
-function parseLines(e)
-{
-  lines = JSON.parse(e.target.result)
-  // console.log(lines)
-  for (var i in lines)
+  currFile = inputFile.files[0]
+  if (currFile)
   {
-    line = lines[i]
-    // console.log(line)
-    var option = document.createElement("option")
-    option.text = line.name
-    option.value = line.number
-    if(i == 0)
+    var reader = new FileReader()
+    reader.onload = function(evt)
     {
-      option.selected = "selected"
+      contents = evt.target.result
+      lineObj = JSON.parse(contents)
+      if(checkLineFile(lineObj))
+      {
+        startStage2()
+      } else {
+        alert("Invalid line file")
+      }
     }
-    var linesList = document.getElementById("linesList")
-    linesList.appendChild(option)
+    reader.readAsText(currFile)
   }
-
-  document.getElementById("loadStops").disabled = false
 }
 
-function parseStops(e)
+function checkLineFile(obj)
 {
-  stops = JSON.parse(e.target.result)
-  // console.log(stops)
+  return true
 }
 
-function displayStops()
+// Stage 2
+function startStage2()
 {
-  document.getElementById("stopsText").innerHTML = ""
-  lineStops = lines[document.getElementById("linesList").value].stops
-  for (stopID in lineStops)
+  document.getElementById("stage1").style = "display:none"
+  fromStop = document.getElementById("fromStop")
+  toStop = document.getElementById("toStop")
+  fromStop.innerHTML = ""
+  toStop.innerHTML = ""
+  for(stop in lineObj.stops)
   {
-    stop = stops[lineStops[stopID]]
-    selectedStops.push(stop)
-    document.getElementById("stopsText").innerHTML += stop.name + "(" + stop.lat + "," + stop.long + ")->"
+    console.log(stop)
+    fromStop.innerHTML += '<option value="' + stop + '">' + lineObj.stops[stop].name + '</option>'
+    toStop.innerHTML += '<option value="' + stop + '">' + lineObj.stops[stop].name + '</option>'
   }
-  document.getElementById("nearestStop").style=""
-}
-
-function findNearestStop()
-{
-  currLat = document.getElementById("searchX").value
-  currLong = document.getElementById("searchY").value
-  minStop = {}
-  minDistance = 99999
-  console.log(selectedStops)
-  for (stopID in selectedStops)
-  {
-    stop = selectedStops[stopID]
-    distance = dist(currLat, currLong, stop.lat, stop.long)
-    console.log(stop, stop.name, distance)
-    if (distance < minDistance)
-    {
-      console.log("Setting " + stop.name)
-      minStop = stop
-      minDistance = distance
-    }
-  }
-  document.getElementById("nearestStopName").innerHTML = minStop.name
-}
-
-function dist(x1, y1, x2, y2)
-{
-  return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+  document.getElementById("stage2").style = ""
 }
