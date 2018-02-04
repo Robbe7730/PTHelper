@@ -63,9 +63,23 @@ function startStage2()
   toStop.innerHTML = ""
   for(stop in lineObj.stops)
   {
-    console.log(stop)
     fromStop.innerHTML += '<option value="' + stop + '">' + lineObj.stops[stop].name + '</option>'
     toStop.innerHTML += '<option value="' + stop + '">' + lineObj.stops[stop].name + '</option>'
   }
+  toStop.lastChild.selected = "selected"
   document.getElementById("stage2").style = ""
+}
+
+function startRoute()
+{
+  fromStop = document.getElementById("fromStop").value
+  toStop = document.getElementById("toStop").value
+  if(fromStop >= toStop)
+  {
+    alert("Please select a valid stop order")
+    return
+  }
+  currentStop = lineObj.stops[fromStop]
+  targetStop = lineObj.stops[toStop]
+  console.log(currentStop, targetStop)
 }
