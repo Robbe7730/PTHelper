@@ -36,7 +36,7 @@ function checkLineFile(obj)
     for(stopID in obj.stops)
     {
       stop = obj.stops[stopID]
-      if(!(typeof(stop.name) == "string" && typeof(stop.id) == "number" && typeof(stop.lat) == "number" && typeof(stop.long) == "number"))
+      if(!(typeof(stop.name) == "string" && typeof(stop.index) == "number" && typeof(stop.lat) == "number" && typeof(stop.long) == "number"))
       {
         console.log("Invalid stop")
         console.log(stop)
@@ -83,3 +83,5 @@ function startRoute()
   targetStop = lineObj.stops[toStop]
   console.log(currentStop, targetStop)
 }
+
+// Stage 3
