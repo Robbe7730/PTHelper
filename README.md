@@ -13,4 +13,5 @@ Save your route while you have internet connection to keep track of next stop(s)
 - [ ] Plan/Save route entirely
 - [ ] Integrate other services (namely Trains, possibly others)
 - [ ] Better looks
+- [ ] ETA
 - [ ] ...
