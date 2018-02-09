@@ -6,7 +6,10 @@ Save your route while you have internet connection to keep track of next stop(s)
 - [ ] Search/Save lines by name/number
 - [ ] Display next stop(s)
 - [ ] Display number of stops before target stop
+
+#### Version 0.2
 - [ ] Check for missed stops (efficiently)
+- [ ] Manual input for missed stops
 - [ ] ...
 
 #### Version 1.0
